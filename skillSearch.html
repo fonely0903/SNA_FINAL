@@ -43,36 +43,79 @@
                   <label for="articleContent" class="col-sm-3 control-label">簡述一下你的交換</label>
                   <textarea name="articleContent" rows="8" class="form-control" required="required" id="articleContent"></textarea>
                 </div>
+                <input type="text" id="aid" style="display:none">
               </div>
               <div class="modal-footer">
                 <input type="submit" value="發布" class="btn btn-default">
               </div>
-            <form>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="editArticle" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4>你想換啥呢</h4>
+            </div>
+            <form id="editForm" @submit="editSubmit">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="title" class="col-sm-3 control-label">來個標題吧</label><label style="color:red">*</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" required="required" name="title" id="edittitle">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="change" class="col-sm-3 control-label">你可交換？</label><label style="color:red">*</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" required="required" name="change" id="editchange">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="learn" class="col-sm-3 control-label">你想學習？</label><label style="color:red">*</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" required="required" name="learn" id="editlearn">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="articleContent" class="col-sm-3 control-label">簡述一下你的交換</label>
+                  <textarea name="articleContent" rows="8" class="form-control" required="required" id="editarticleContent"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" value="編輯" class="btn btn-default">
+              </div>
+            </form>
           </div>
         </div>
       </div>
       <!-- NAV BAR -->
       <nav class="container my-nav">
         <a class="logo" href="./index.html">SKILL SWAP</a>
-        <!-- <div class="pull-left tabs">
+        <div class="pull-left tabs">
           <span class="glyphicon glyphicon-th-list" style="cursor:pointer;" @click="control.tab = 'all' ">顯示全部 </span>
           <span class="glyphicon glyphicon-star"    style="cursor:pointer;" @click="control.tab = 'star'">我的最愛</span>
         </div>
+
         <div class="pull-right">
-          <span class="glyphicon glyphicon-time">依時間</span>
-          <span class="glyphicon glyphicon-wrench">依類別</span>
-          <input type="text"  placeholder="filter">
-        </div> -->
+          <!-- <span class="glyphicon glyphicon-time">依時間</span> -->
+          <!-- <span class="glyphicon glyphicon-wrench">依類別</span> -->
+          <input class="filter" type="text"  placeholder="搜尋" v-model="control.filter">
+        </div>
       </nav>
 
+      <div class="container btn-con">
+        <button type="button" class="btn btn-primary col-md-12 articlePublished" @click="articleModal">誰來跟我換</button>
+      </div>
       <!-- main content -->
       <main class="container">
-        <div class="items col-md-8 row">
-          <article class="item" v-for="a in skill_list">
+        <div class="items col-md-12 row">
+          <article class="item" v-for="a in current_skill_list">
             <header>
               <h1>{{a.title}}</h1>
               <p>{{a.time}}</p><p>{{a.area}}</p>
-              <div class="animation-swipe star" @click="toggle_like(a.aid)" :class="favorite(a.aid)">
+              <div class="animation-swipe star" @click="toggle_like(a.aid)" :class="favorite_list[a.aid] ? 'favorite' : ''">
                 <span class="glyphicon glyphicon-star" >加入最愛</span>
               </div>
             </header>
@@ -84,12 +127,13 @@
                 <p v-html="a.content"></p>
                 <!-- <textarea v-model="a.detail"></textrea> -->
               </div>
+              <button type="button" class="btn btn-default edit-btn" :class="currentUser.uid==a.uid ? '' : 'btn-disappear'" @click="edit_article(a)">編輯貼文</button>
               <button type="button" class="btn bnt-primary change-btn">我想交換</button>
             </div>
           </article>
         </div>
 
-        <div class="suggests col-md-4">
+        <!-- <div class="suggests col-md-4">
           <button type="button" class="btn btn-primary col-md-12 articlePublished" @click="articleModal">誰來跟我換</button>
           <h3>推薦技能</h3>
           <article class="item suggestion" v-for="a in suggest_list">
@@ -106,11 +150,11 @@
               <div class="item-detail">
                 <p>詳細內容：</p>
                 <p v-html="a.content"></p>
-                <!-- <textarea v-model="a.detail"></textrea> -->
+                <textarea v-model="a.detail"></textrea>
               </div>
             </div>
           </article>
-        </div>
+        </div> -->
       </main>
     </div>
 
