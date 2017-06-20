@@ -14,15 +14,26 @@ var rootRef     = db.ref() ;
 var usersRef    = db.ref("users");
 var store       = firebase.storage();
 var storeRef    = store.ref();
+var currentUser
+var pageUid = {};
 
+$(window).ready(function(){
+  var query = location.search.substr(1);
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    pageUid= decodeURIComponent(item[1]);
+  });
+  console.log(pageUid);
+})
 
 firebase.auth().onAuthStateChanged(function(user) {
-  var currentUser = firebase.auth().currentUser;
+  currentUser = firebase.auth().currentUser;
 	if(user){
+    // window.location = '/profile.html'
 		// $('.userName').text(user.displayName)
     var currentUid = currentUser.uid
     usersRef.once('value',function(snapShot){
-      var userInfo = snapShot.val()[currentUid].userInfo
+      var userInfo = snapShot.val()[pageUid].userInfo
 
       //初次登入填表單
       if(userInfo == undefined){
@@ -57,6 +68,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 }
 })
 //上傳作品
+$('.test-btn').click(function(){
+  window.location.search="uid="+currentUser.uid
+})
 var localFileVideoPlayer =function(){
 	'use strict'
   var URL = window.URL || window.webkitURL

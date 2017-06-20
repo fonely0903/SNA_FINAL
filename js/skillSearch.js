@@ -40,6 +40,7 @@ var app = new Vue({
       var postData = {
         uid :vm.currentUser.uid,
         aid :newPostKey,
+        author :vm.currentUser.displayName,
         title :dataArr[0].value,
         change :dataArr[1].value,
         learn :dataArr[2].value,
@@ -99,7 +100,11 @@ var app = new Vue({
       updates['/articles/' + aid] = postData;
       //updates['/user-articles/' + currentUser.uid + '/' + newPostKey] = postData;
       return firebase.database().ref().update(updates);
+    },
+    queryUrl :function(uid){
+      window.location="profile.html?uid="+uid
     }
+
     // favorite :function(aid){
     //   var result =[];
     //   usersRef.child(currentUser.uid).child("favorite").child(aid).on('value',function(data){
