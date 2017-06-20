@@ -41,6 +41,10 @@ nav h1 {
 .tabs {
     padding-left: 30px;
 }
+.filter{
+  color: black;
+  margin-top: 10px;
+}
 
 /*=============================ITEM================================*/
 .animation-swipe {
@@ -78,14 +82,14 @@ nav h1 {
 
 .item {
   position: relative;
-  margin: 30px 10px;
+  margin: 20px 0 30px 30px;
   padding: 10px;
   background: white;
   border-left: 30px solid #3fcec9;
   box-shadow: 3px 1px 3px #c6c6c6;
   border-radius: 4px;
 }
-.suggestion{
+/*.suggestion{
   margin: 30px 10px;
   padding: 10px;
   background: white;
@@ -93,7 +97,7 @@ nav h1 {
   border-left: 0;
   box-shadow: 3px 1px 3px #c6c6c6;
   border-radius: 4px;
-}
+}*/
 .item header {
   position: relative;
   width: 100%;
@@ -135,12 +139,27 @@ nav h1 {
   box-shadow: 0 0 2px #808080 inset;
   border-radius: 5px;
 }
+
+.btn-con{
+  padding-left: 45px;
+  padding-right: 45px;
+}
 .articlePublished{
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 10px auto;
+  font-size: 24px;
 }
 .change-btn{
   position: absolute;
   right: 10px;
-  bottom: 25px;
+  bottom: 20px;
+}
+.edit-btn{
+  position: absolute;
+  right: 100px;
+  bottom: 20px;
+}
+
+.btn-disappear{
+  display: none;
 }

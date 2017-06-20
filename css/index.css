@@ -59,13 +59,9 @@ footer {
   color: #3fcec9;
 
 }
-/*.log-in{
-  display: none;
-}*/
-.loged{
-  display: none;
+.userImg{
+  margin-top: 4px;
 }
-
 .featureImage{
     width: auto;
     width: 500px;
