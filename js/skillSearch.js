@@ -15,19 +15,11 @@ var usersRef    = db.ref("users");
 var articlesRef = db.ref("articles");
 var currentUser
 
-firebase.auth().onAuthStateChanged(function (user) {
-  if(user){
-    currentUser = user;
-    console.log(currentUser.uid);
-  }else{
-    alert("您尚未登入")
-  }
-});
-
 var app = new Vue({
   el :'#app',
   data :{
-    skill_list :{},
+    currentUser,
+    skill_list :[],
     suggest_list :{},
     favorite_list : {},
     control:{
@@ -41,17 +33,18 @@ var app = new Vue({
       $('#publishArticle').modal('show')
     },
     articleSubmit :function(){
+      var vm=this;
       var dataArr = $("#articleForm").serializeArray();
       var newPostKey = firebase.database().ref().child('articles').push().key;
       // Write the new post's data simultaneously in the posts list and the user's post list.
       var postData = {
-        uid :currentUser.uid,
+        uid :vm.currentUser.uid,
         aid :newPostKey,
         title :dataArr[0].value,
         change :dataArr[1].value,
         learn :dataArr[2].value,
-        content :dataArr[3].value.replace(" ","<br />"),
-        time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes(),
+        content :dataArr[3].value.replace(/\n/g,"<br />"),
+        time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().toLocaleTimeString(),
         changed :false
       }
       var updates = {};
@@ -61,28 +54,66 @@ var app = new Vue({
       return firebase.database().ref().update(updates);
     },
     toggle_like :function(aid){
+      var vm=this
       var favorite = {}
       favorite[aid] =true
-      usersRef.child(currentUser.uid).child("favorite").child(aid).once('value',function(data){
+      usersRef.child(vm.currentUser.uid).child("favorite").child(aid).once('value',function(data){
         if(data.val()){
-          usersRef.child(currentUser.uid).child("favorite").child(aid).remove()
+          usersRef.child(vm.currentUser.uid).child("favorite").child(aid).remove()
         }else{
-          usersRef.child(currentUser.uid).child("favorite").update(favorite)
-        }
-       })
-    },
-    favorite :function(aid){
-      var result =[];
-      usersRef.child(currentUser.uid).child("favorite").child(aid).on('value',function(data){
-        console.log(data.val())
-        if(data.val()){
-          result=['favorite']
-        }else{
-          result = [""]
+          usersRef.child(vm.currentUser.uid).child("favorite").update(favorite)
         }
       })
-      return result
+      this.$set(this.favorite_list ,aid , this.favorite_list[aid] ?  false : true)
+      console.log(this.favorite_list);
     },
+    logList :function(){
+      console.log(this.skill_list);
+    },
+    edit_article :function(a){
+      $('#editArticle').modal('show')
+      $('#edittitle').val(a.title)
+      $('#editchange').val(a.change)
+      $('#editlearn').val(a.learn)
+      $('#editarticleContent').val(a.content.replace(/<br\s*\/?>/gi,'\n'))
+      $('#aid').val(a.aid)
+      console.log(a);
+    },
+    editSubmit :function(){
+      var vm =this;
+      var aid = $('#aid').val()
+      var dataArr = $("#editForm").serializeArray();
+      console.log(aid);
+      var postData = {
+        uid :vm.currentUser.uid,
+        aid :aid,
+        title :dataArr[0].value,
+        change :dataArr[1].value,
+        learn :dataArr[2].value,
+        content :dataArr[3].value.replace(/\n/g,"<br />"),
+        time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().toLocaleTimeString(),
+        changed :false
+      }
+      console.log(aid)
+      var updates = {};
+      updates['/articles/' + aid] = postData;
+      //updates['/user-articles/' + currentUser.uid + '/' + newPostKey] = postData;
+      return firebase.database().ref().update(updates);
+    }
+    // favorite :function(aid){
+    //   var result =[];
+    //   usersRef.child(currentUser.uid).child("favorite").child(aid).on('value',function(data){
+    //     console.log(data.val())
+    //     if(data.val()){
+    //       result=['favorite']
+    //     }else{
+    //       result = [""]
+    //     }
+    //   })
+    //   return result
+    // }
+  },
+  computed :{
     current_skill_list :function(){
       var vm=this
       var current = []
@@ -91,20 +122,53 @@ var app = new Vue({
           current = vm.skill_list
           break
         case "star" :
-          current = vm.articles.filter(function(a){
-            return vm.favorite[a.uid]
+          current = vm.skill_list.filter(function(a){
+            return vm.favorite_list[a.aid]
           })
       }
-    }
-  },
-  computed :{
+      if(vm.control.filter && vm.control.filter.length>0){
+        var filter = []
+        current = current.filter(function(s){
+          var search = vm.control.filter.toLowerCase()
+          var title = s.title.toLowerCase()
+          var change = s.change.toLowerCase()
+          var learn = s.learn.toLowerCase()
+          var content = s.content.toLowerCase()
+          return (title.indexOf(search) > -1||change.indexOf(search) > -1||learn.indexOf(search) > -1||content.indexOf(search) > -1)
+        })
+      }
 
+      return current;
+    }
   },
   created :function(){
     var vm=this;
-      articlesRef.once('value',function(data){
-        var allArticles = data.val()
-        vm.skill_list = allArticles
+    firebase.auth().onAuthStateChanged(function (user) {
+      if(user){
+        vm.currentUser = user;
+      }else{
+        alert("您尚未登入")
+      }
+      usersRef.child(vm.currentUser.uid).child("favorite").once('value',function(data){
+        if(data.val()){
+          var fArticles = Object.keys(data.val())
+          console.log(fArticles);
+          for(var i=0;i<fArticles.length;i++){
+             app.$set(app.favorite_list ,fArticles[i] , app.favorite_list[fArticles[i]] ?  false : true)
+          }
+        }
       })
+    });
+    var vm=this;
+    articlesRef.once('value',function(data){
+      var allArticles = data.val()
+      var obj = $.map(allArticles, function(value, index) {
+        var re = [value]
+        re.reverse()
+        return re;
+      });
+      obj = obj.reverse();
+      vm.skill_list = obj
+    })
   }
 })
