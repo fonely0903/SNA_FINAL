@@ -12,13 +12,15 @@ var provider = new firebase.auth.FacebookAuthProvider();
 var db          = firebase.database() ;
 var rootRef     = db.ref() ;
 var usersRef    = db.ref("users");
-
+var currentUid
 $(document).ready(function(){
   firebase.auth().onAuthStateChanged(function(user) {
     console.log(user);
     var vm=this;
       if (user){
         // save usr public data  (*1)
+        currentUid = user.uid
+        console.log(currentUid);
         var userData = user.toJSON();
         usersRef.child (userData.uid).child("userData").update(userData).catch(errorCallback)
         // update vue to login status
@@ -35,7 +37,9 @@ $(document).ready(function(){
 })
 
 var errorCallback = function(error){ alert(error.message)}
-
+$('.profile').click(function(){
+  window.location="profile.html?uid="+currentUid
+})
 $('.log-in').click(function(){
   firebase.auth().signInWithPopup(provider).then(function(result) {
   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
