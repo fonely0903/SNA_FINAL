@@ -129,7 +129,7 @@
                 <!-- <textarea v-model="a.detail"></textrea> -->
               </div>
               <button type="button" class="btn btn-default edit-btn" :class="currentUser.uid==a.uid ? '' : 'btn-disappear'" @click="edit_article(a)">編輯貼文</button>
-              <button type="button" class="btn bnt-primary change-btn">我想交換</button>
+              <button type="button" class="btn bnt-primary change-btn" @click="sendMessage(a.uid)">我想交換</button>
             </div>
           </article>
         </div>

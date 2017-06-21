@@ -13,6 +13,7 @@ var db          = firebase.database() ;
 var rootRef     = db.ref() ;
 var usersRef    = db.ref("users");
 var articlesRef = db.ref("articles");
+var chatsRef    = db.ref("chats");
 var currentUser
 
 var app = new Vue({
@@ -104,7 +105,44 @@ var app = new Vue({
     },
     queryUrl :function(uid){
       window.location="profile.html?uid="+uid
+    },
+    sendMessage :function(uid){
+
+    var txt = prompt("傳個訊息給他吧", "");
+    if (txt == null || txt == "") {
+    } else {
+    
+        var myChatsRef    = chatsRef.child(this.currentUser.uid);
+
+     
+      var postData = {
+        read : false,
+        meSend :true,
+        message : txt,
+        time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes(),
+      }
+
+      var newPostKey = myChatsRef.child(uid).push().key;
+
+      var updates = {};
+      updates['/'+uid+'/' + newPostKey] = postData;
+      myChatsRef.update(updates)
+    
+
+    newPostKey = chatsRef.child(uid).child(this.currentUser.uid).push().key;
+
+
+      postData.meSend = false;
+      var updates2 = {};
+      updates2['/'+uid+'/' + this.currentUser.uid + '/' + newPostKey] = postData;
+      chatsRef.update(updates2);
+      console.log("sended");
     }
+  }
+    
+    
+
+   
 
     // favorite :function(aid){
     //   var result =[];

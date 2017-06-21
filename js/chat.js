@@ -127,7 +127,7 @@ $('.recent-one').click(function(o){
 		chatsRef.child(currentUser.uid).child(clickedUser.uid).off();
 
 		loadMessage();
-		listenToDb();
+		listenToDb(true);
 		// .recent-one__active
 
 // 		var commentsRef = myChatsRef.child("");
@@ -190,7 +190,7 @@ $('#send_bt').click(function(){
 
 })
 
-function listenToDb(){
+function listenToDb(firstClick){
 	listenRef = chatsRef.child(currentUser.uid).child(clickedUser.uid);
   	console.log("listenToDb");
 
@@ -200,8 +200,13 @@ function listenToDb(){
   	snapshot.forEach(function (item) {
             var itemVal = item.val();
             console.log(itemVal);
-            addMessage(itemVal);
 
+            //第一次點選不同使用者不加入訊息
+            if(!firstClick){
+            	addMessage(itemVal);
+			}else{
+				firstClick = false;
+			}
 		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 50)
 
         });
@@ -225,14 +230,18 @@ function sendMsg(text){
 	// addMessage(postData);
 
 
-      var newPostKey = myChatsRef.child('101').push().key;
+      // var newPostKey = myChatsRef.child('101').push().key;
+      var newPostKey = myChatsRef.child(clickedUser.uid).push().key;
+
 // console.log(newPostKey);
       var updates = {};
       updates['/'+clickedUser.uid+'/' + newPostKey] = postData;
       myChatsRef.update(updates)
 		
 
-	  newPostKey = chatsRef.child(currentUser.uid).push().key;
+	  // newPostKey = chatsRef.child(currentUser.uid).push().key;
+	  newPostKey = chatsRef.child(clickedUser.uid).child(currentUser.uid).push().key;
+
 
       postData.meSend = false;
       var updates2 = {};
