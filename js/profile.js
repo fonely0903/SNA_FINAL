@@ -26,6 +26,7 @@ $(window).ready(function(){
     pageUid= decodeURIComponent(item[1]);
   });
   console.log(pageUid);
+
 })
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -34,6 +35,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     // window.location = '/profile.html'
 		// $('.userName').text(user.displayName)
     var currentUid = currentUser.uid
+    if(pageUid=="") {pageUid = currentUid}
+    console.log(pageUid);
     usersRef.once('value',function(snapShot){
       var userInfo = snapShot.val()[pageUid].userInfo
 
@@ -184,3 +187,41 @@ $('.mid-right-btn').click(function(){
 	$('.mid-left-btn').delay(500).fadeIn("slow")
 	setTimeout(function(){$('.mid-right-btn').css('display','none')},1000)
 })
+
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    currentUser = user
+  } else {
+    alert("您尚未登入")
+  }
+  usersRef.child(currentUser.uid).child("record").once('value', function(data) {
+    var allrecord = data.val()
+    var obj = $.map(allrecord, function(value, index) {
+      var re = [value]
+      return re;
+    });
+    obj = obj.reverse();
+    console.log(obj);
+    $('.record').html(`<div class="record-box">
+      <h4>`+obj[0].title+`</h4>
+      <div class="skill-box"><p>可交換：`+obj[0].change+`</p></div>
+      <div class="skill-box"><p>欲學習：`+obj[0].learn+`</p></div>
+    </div>`)
+  })
+  usersRef.child(currentUser.uid).child("endrecord").once('value', function(data) {
+    var allendrecord = data.val()
+    var obj = $.map(allendrecord, function(value, index) {
+      var re = [value]
+      re.reverse()
+      return re;
+    });
+    obj = obj.reverse();
+    console.log(obj);
+    $('.endRecord').html(`<div class="record-box">
+      <h4>`+obj[0].title+`</h4>
+      <div class="skill-box"><p>可交換：`+obj[0].change+`</p></div>
+      <div class="skill-box"><p>欲學習：`+obj[0].learn+`</p></div>
+    </div>`)
+  })
+});
