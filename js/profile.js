@@ -16,6 +16,8 @@ var store       = firebase.storage();
 var storeRef    = store.ref();
 var currentUser
 var pageUid = {};
+var urlobj;
+var urllist = [];
 
 $(window).ready(function(){
   var query = location.search.substr(1);
@@ -63,6 +65,40 @@ firebase.auth().onAuthStateChanged(function(user) {
       $('.change-content').text(userInfo.youCanChange)
       $('.learn-content').text(userInfo.youWantLearn)
     })
+    var urlRef = usersRef.child(currentUid).child('userData').child('userImgurl');
+    // var container = document.getElementById('imageContainer');
+    var allurlRef = urlRef.once('value',function(data){
+      var allurl = data.val()
+      obj = $.map(allurl,function(value, index){
+        var re = [value]
+        re.reverse()
+        return re;
+      });
+      obj = obj.reverse();
+      console.log(Object.keys(obj).length);
+      for(var i = 0 ;  i < Object.keys(obj).length ; i++){
+        // console.log(obj[i].Imgurl);
+        urllist[i]= obj[i].Imgurl;
+        console.log(urllist[i]);
+        // var img = document.createElement('img');
+        // img.src = urllist[i];
+        // container.appendChild(img);
+        // console.log("1");
+        if(i==1){
+        $("#img1").attr('src', urllist[i]);
+        $("#ref1").attr('href', urllist[i]);
+      }
+        else if(i==2){
+          $("#img2").attr('src', urllist[i]);
+          $("#ref2").attr('href', urllist[i]);
+        }
+        else if(i==3){
+          $("#img3").attr('src', urllist[i]);
+          $("#ref3").attr('href', urllist[i]);
+        }
+      }
+      console.log(obj);
+    })
 }else{
   alert("您尚未登入")
 }
@@ -99,6 +135,28 @@ var localFileVideoPlayer =function(){
   var inputNode = document.querySelector('input')
   inputNode.addEventListener('change', playSelectedFile, false)
 }
+surepost.addEventListener("click", function(user) {
+  var currentUser = firebase.auth().currentUser;
+  var currentUid = currentUser.uid
+  var file = document.getElementById('file').files[0];
+  if (file) {
+    var metedata = {
+      contentType: file.type
+    };
+    storeRef.child('/userImage/' + currentUid + '/' + file.name).put(file, metedata).then(function(snapshot) {
+      console.log('上傳完成' + snapshot);
+      storeRef.child('/userImage/' + currentUid + '/' + file.name).getDownloadURL().then(function(url) {
+        console.log(url);
+        usersRef.child(currentUid).child('userData').child('userImgurl').push().set({
+          "Imgurl": url
+        })
+      })
+    });
+
+  } else {
+    console.log('upload failed');
+  }
+})
 
 //中間捲軸動畫
 $('.message').hover(function(){
