@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/profile.css">
-  <link rel="stylesheet" href="css/blueimp-gallery.min.css">
+  <link rel="stylesheet" href="src/css/blueimp-gallery.min.css">
   <!--TITLE FONT  --><script src="https://use.edgefonts.net/permanent-marker.js"></script>
 
 </head>
@@ -182,10 +182,18 @@
       </nav>
       <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
-          <iframe src="./temp.html" style="border:none;" class="frame" name="target"></iframe>
+          <div style="border:none;" class="frame record" name="target">
+            <!-- <div class="record-box">
+              <h4>title</h4>
+              <div class="skill-box"><p>可交換：{{a.change}}</p></div>
+              <div class="skill-box"><p>欲學習：{{a.learn}}</p></div>
+            </div> -->
+          </div>
         </div>
         <div id="menu1" class="tab-pane fade">
-          <iframe src="./temp.html" style="border:none;" class="frame" name="target"></iframe>
+          <div style="border:none;" class="frame endRecord" name="target">
+
+          </div>
         </div>
       </div>
     </div>
@@ -196,7 +204,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <script src="js/profile.js"></script>
-  <script src="js/blueimp-gallery.min.js"></script>
+  <script src="src/js/blueimp-gallery.min.js"></script>
   <script>
     document.getElementById('links').onclick = function(event) {
       event = event || window.event;

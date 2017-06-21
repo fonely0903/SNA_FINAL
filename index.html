@@ -2,12 +2,12 @@
 <html lang="zh-hant-TW">
 
 <head>
-  <title>SkillExchange</title>
+  <title>SKILL SWAP</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-
+  <link rel="stylesheet" href="src/css/blueimp-gallery.min.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
 
 
@@ -97,7 +97,7 @@
             <h4 class = "description">編輯個人主頁，讓其他人更了解你</h4>
           </div>
                 <div class = "feature" id = "skills">
-                    <h4><img src = "http://www.northguan-nsa.gov.tw/Att_FCK/images/ec/萬金-美食_02.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle="modal" data-target="#skillModal">
+                    <h4><img src = "img/webpage.ico" class = "featureImage" style = "margin-bottom: 20px;" data-toggle="modal" data-target="#skillModal">
                         <br>展露你的專長
                     </h4>
                     <!-- Modal of picture -->
@@ -126,7 +126,7 @@
                                   </div>
                                 </div>
                                 <div class = "div3Part col-md-4" >
-                                  <img src="/img/3-1.png" class="modal_prof" alt="">
+                                  <img src="/img/3-1.bmp" class="modal_prof" alt="">
                                   <div class = "description_text">
                                     - 開始發文 -
                                   </div>
@@ -140,12 +140,11 @@
                         </div>
                       </div>
                 </div>
-                <hr class = "theline">
-                <div class = "feature" id = "status">
-                    <h4><img src = "https://taiwantour.info/wp-content/uploads/桃園美食推薦龜山A8站好飯食堂DSC06822_结果.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle="modal" data-target="#shareModal">
+                <!-- <hr class = "theline"> -->
+                <!-- <div class = "feature" id = "status">
+                    <h4><img src = "img/relationship.ico" class = "featureImage" style = "margin-bottom: 20px;" data-toggle="modal" data-target="#shareModal">
                         <br>分享學習狀態
                     </h4>
-                    <!-- Modal -->
                     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -182,7 +181,7 @@
                           </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
         </div>
     </div>
   </div>
@@ -197,38 +196,38 @@
             <h4 class="description">善用即時聊天室，隨時學習，分享心得</h4>
           </div>
           <div class="feature" id="chatRoom">
-            <h4><img src = "http://img.yoti.life/uploads/20160411113732_89.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#chatRoomModal">
+            <h4><img src = "img/send-message2.ico" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#chatRoomModal">
                         <br>盡情聊天
                     </h4>
-                    <!-- Modal -->
-                      <div class="modal fade" id="chatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header modalBackground">
-                                <p class = "modal-title"style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">如何使用聊天室</p>
-                                <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal fade" id="chatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header modalBackground">
+                    <p class="modal-title" style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">如何使用聊天室</p>
+                    <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
                                     <img src="http://expediaholiday.d.seven2.net/_images/modal_close.png"/>
                                 </button>
-                              </div>
-                              <div class = "modal_body">
-                                <div class = "modal_content row" >
-                                    <div class = "div1Part col-md-offset-1 col-md-10">
-                                      <img src="/img/5.png" class="modal_prof" alt="">
-                                    </div>
-                                    <div class = "description_text col-md-5">
-                                      - 聯絡人 -
-                                    </div>
-                                    <div class = "description_text col-md-5">
-                                      - 聊天記錄 -
-                                    </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer" style="text-align: center;">
-                                <button type="button" class="btn btn-primary chatBut">Learn More</button>
-                              </div>
-                            </div>
-                          </div>
+                  </div>
+                  <div class="modal_body">
+                    <div class="modal_content row">
+                      <div class="div1Part col-md-offset-1 col-md-10">
+                        <img src="/img/5.png" class="modal_prof" alt="">
                       </div>
+                      <div class="description_text col-md-5">
+                        - 聯絡人 -
+                      </div>
+                      <div class="description_text col-md-5">
+                        - 聊天記錄 -
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="btn btn-primary chatBut">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -244,51 +243,50 @@
             <h4 class="description">尋找想要的技能，發現稀有專業</h4>
           </div>
           <div class="feature" id="searchList">
-            <h4><img src = "https://img.tenjo.tw/uploads/20161125232511_36.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#keywordModal">
+            <h4><img src = "img/search-good.ico" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#keywordModal">
             	<br>輸入關鍵字，找出各路專家
             	</h4>
-              <!-- Modal -->
-                    <div class="modal fade" id="keywordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header modalBackground">
-                              <p class = "modal-title"style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">搜尋簡介</p>
-                              <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal fade" id="keywordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header modalBackground">
+                    <p class="modal-title" style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">搜尋簡介</p>
+                    <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
                                   <img src="http://expediaholiday.d.seven2.net/_images/modal_close.png"/>
                               </button>
-                            </div>
-                            <div class = "modal_body">
-                              <div class = "modal_content row" >
-                                  <div class = "col-md-4">
-                                    <img src="/img/6.png" class="modal_prof" alt="">
-                                    <div class = "description_text">
-                                      - 發布貼文 -
-                                    </div>
-                                  </div>
-                                  <div class = "col-md-8">
-                                    <img src="/img/7.png" class="modal_prof" alt="">
-                                    <div class = "description_text col-md-6">
-                                      - 尋找技能 -
-                                    </div>
-                                    <div class = "description_text col-md-6">
-                                      - 按下交換 -
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer" style="text-align: center;">
-                              <button type="button" class="btn btn-primary searchBut">Learn More</button>
-                            </div>
-                          </div>
+                  </div>
+                  <div class="modal_body">
+                    <div class="modal_content row">
+                      <div class="col-md-4">
+                        <img src="/img/3-1.bmp" class="modal_prof" alt="">
+                        <div class="description_text">
+                          - 發布貼文 -
                         </div>
+                      </div>
+                      <div class="col-md-8">
+                        <img src="/img/7.jpg" class="modal_prof" alt="">
+                        <div class="description_text col-md-6">
+                          - 尋找技能 -
+                        </div>
+                        <div class="description_text col-md-6">
+                          - 按下交換 -
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="btn btn-primary searchBut">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <hr class="theline">
+          <!--<hr class="theline">
           <div class="feature" id="rareList">
             <h4><img src = "https://img.tenjo.tw/uploads/20161125232511_36.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#rareModal">
             	<br>各式稀有技能，滿足你的好奇心
             	</h4>
-              <!-- Modal -->
                     <div class="modal fade" id="rareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -320,7 +318,6 @@
             <h4><img src = "https://img.tenjo.tw/uploads/20161125232511_36.jpg" class = "featureImage" style = "margin-bottom: 20px;" data-toggle = "modal" data-target = "#recommendModal">
                 <br>專業推薦，開發妳的潛能
               </h4>
-              <!-- Modal -->
                     <div class="modal fade" id="recommendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -357,75 +354,79 @@
       </div>
     </div>
   </div>
-
-  <div class="container-fluid text-center lastlayer">
-    <div class = "container">
-      <div class = "row">
-        <div class="col-sm-5">
-          <p class="skills" style="font-size: 36px;">
-            Skill Swap
-          </p>
-        </div>
-        <div class="col-sm-7" style = "text-align: left;">
-          <h4>
+-->
+          <div class="container-fluid text-center lastlayer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-5">
+                  <p class="skills" style="font-size: 36px;">
+                    Skill Swap
+                  </p>
+                </div>
+                <div class="col-sm-7" style="text-align: left;">
+                  <h4>
             Contact Us <small>Questions or Advices? Please drop us a mail ! We will get back to you ASAP !</small>
           </h4>
-          <p>
-          <img src="img/email.png" alt = "mail" id = "mailicon">
-            102703015@nccu.edu.tw
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+                  <p>
+                    <img src="img/email.png" alt="mail" id="mailicon"> 102703046@nccu.edu.tw
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  <footer class="container-fluid text-center footer navbar-inverse">
-    <div class = "container">
-      <div class = "col-sm-6">
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-left">
-            <li onclick="click_footerBut(this.id)" id="prof_" class="foot_text"><a href="#">個人主頁</a></li>
-            <li onclick="click_footerBut(this.id)" id="chat_" class="foot_text"><a href="#">聊天室</a></li>
-            <li onclick="click_footerBut(this.id)" id="skill_" class="foot_text"><a href="#">搜尋介面</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class = "col-sm-6" style = "text-align:right; margin-top:15px;">
-        <p>© team <i style = "font-family: permanent-marker, sans-serif;">SKILL SWAP</i></p>
-      </duv>
-    </div>
-  </footer>
+          <footer class="container-fluid text-center footer navbar-inverse">
+            <div class="container">
+              <div class="col-sm-6">
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav navbar-left">
+                    <li onclick="click_footerBut(this.id)" id="prof_" class="foot_text"><a href="#">個人主頁</a></li>
+                    <li onclick="click_footerBut(this.id)" id="chat_" class="foot_text"><a href="#">聊天室</a></li>
+                    <li onclick="click_footerBut(this.id)" id="skill_" class="foot_text"><a href="#">搜尋介面</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-6" style="text-align:right; margin-top:15px;">
+                <p>© team <i style="font-family: permanent-marker, sans-serif;">SKILL SWAP</i></p>
+                </duv>
+              </div>
+          </footer>
 
-  <!-- Modal of unlog-->
-  <div class="modal fade" id="unlogwarningModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" >
-        <div class="modal-content">
-          <div class="modal-header modalBackground" style="text-align:center">
-            <p class = "modal-title"style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">加入會員</p>
-            <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
+          <!-- Modal of unlog-->
+          <div class="modal fade" id="unlogwarningModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header modalBackground" style="text-align:center">
+                  <p class="modal-title" style="font-family: Microsoft JhengHei; color: white; font-weight:800; font-size:22px;">加入會員</p>
+                  <button type="button" class="close mynewclassclose" data-dismiss="modal" aria-hidden="true">
                 <img src="http://expediaholiday.d.seven2.net/_images/modal_close.png"/>
             </button>
+                </div>
+                <div class="modal_body" style="text-align: center; font-size:20px; margin-top:10px;">
+                  <p>
+                    等不及來一場技能交換了嗎 趕快來用FB登入哦！
+                  </p>
+                  <img src="img/fb.png" alt="Facebook log in" id="fbicon">
+                </div>
+                <div class="modal-footer " style="text-align: center; margin-top:10px;">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Maybe Later</button>
+                  <button type="button" class="btn btn-primary unlogButton loginBut" data-dismiss="modal">Log In</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class = "modal_body" style = "text-align: center; font-size:20px; margin-top:10px;">
-            <p>
-              等不及來一場技能交換了嗎 趕快來用FB登入哦！
-            </p>
-            <img src="img/fb.png" alt = "Facebook log in" id = "fbicon">
-          </div>
-          <div class="modal-footer " style="text-align: center; margin-top:10px;">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Maybe Later</button>
-            <button type="button" class="btn btn-primary unlogButton loginBut" data-dismiss="modal">Log In</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
 </body>
-  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-  <!--TITLE FONT  --><script src="https://use.edgefonts.net/permanent-marker.js"></script>
-  <!--JQUERY      --><script src="./src/js/jquery-3.2.1.min.js"></script>
-  <!--BOOTSTRAP   --><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+<!--TITLE FONT  -->
+<script src="https://use.edgefonts.net/permanent-marker.js"></script>
+<!--JQUERY      -->
+<script src="./src/js/jquery-3.2.1.min.js"></script>
+<!--BOOTSTRAP   -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <script src="js/index.js" type="text/javascript"></script>
+<script src="js/index.js" type="text/javascript"></script>
+<script src="src/js/blueimp-gallery.min.js" type="text/javascript">
+</script>
 
 </html>
