@@ -19,14 +19,21 @@ var currentUser;
 var clickedUser;
 var historyUID;
 var historyUsers = [];
-var usersLastMessage = []; 
+var usersLastMessage = [];
+var token; 
 
 firebase.auth().onAuthStateChanged(function (user) {
   if(user){
-    currentUser = user;
-    console.log(currentUser.uid);
+    currentUser = user.toJSON();
+    console.log(currentUser);
 
-getUsersID();
+	firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+      token = idToken;
+      console.log("取得 ID Token",token);
+    })
+
+       getUsersID(); 
+
     
 
   }else{
@@ -43,10 +50,15 @@ function getUsersID() {
 }
 
 function getUsersInfo(historyUID) {
+	//清除左側朋友列表
+	$('.recent-friends').empty();
+
+
 	for(i = 0 ;i < historyUID.length; i++){
 		//console.log(historyUID[i]);
 		usersRef.child(historyUID[i]).child("userData").once('value').then(function(snapshot) {
 			if(null != snapshot.val()){
+
 			historyUsers.push(snapshot.val());
 
 
@@ -57,14 +69,14 @@ function getUsersInfo(historyUID) {
 			ronei.append(img);
 			ronel.append(ronei);
 			rone.append(ronel);
-			var roneb = $("<div></div>").addClass('recent-one');
-			var roneh = $("<div></div>").addClass('recent-one');
+			var roneb = $("<div></div>").addClass('recent-one__body');
+			var roneh = $("<div></div>").addClass('recent-one_head');
 			var ronen = $("<div></div>").addClass('recent-one__name').text(snapshot.val().displayName);
 			roneh.append(ronen);
 			roneb.append(roneh);
 			rone.append(roneb);
 
-			$('.recent-friends').prepend(rone);
+			$('.recent-friends').append(rone);
 			leftClickFun();
 			}
   		// var username = snapshot.val().displayName;
@@ -98,6 +110,15 @@ $('.recent-one').click(function(o){
 		$('.messenger__list').empty();
 		//TODO add messenger
 
+		var leftUserElement;
+		leftUserElement = $('.recent-friends').find('.recent-one');
+		console.log(leftUserElement);
+		console.log(historyUID);
+
+		var clicked = leftUserElement.toArray().indexOf($(this).get(0));
+		console.log(historyUsers[clicked])
+		clickedUser = historyUsers[clicked];
+		// .recent-one__active
 
 // 		var commentsRef = myChatsRef.child("");
 // commentsRef.on('child_added', function(data) {
@@ -108,21 +129,34 @@ $('.recent-one').click(function(o){
 
 console.log("js loaded")
 $('#send_bt').click(function(){
- 
-var myChatsRef    = chatsRef.child(currentUser.uid);
+
+	var text = $("#send_input").val();
+	if(text!=""){
+ 		sendMsg(text);
+	}
+
+ return;
+
+})
+
+function sendMsg(text){
+    
+    console.log(text);
+
+	var myChatsRef    = chatsRef.child(currentUser.uid);
 
        var dataArr = $("#articleForm").serializeArray();
      
       var postData = {
         meSend :true,
-        message : "hi there",
+        message : text,
         time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes(),
       }
 
       var newPostKey = myChatsRef.child('101').push().key;
 console.log(newPostKey);
       var updates = {};
-      updates['/101/' + newPostKey] = postData;
+      updates['/'+clickedUser.uid+'/' + newPostKey] = postData;
       myChatsRef.update(updates)
 		
 
@@ -130,11 +164,9 @@ console.log(newPostKey);
 
       postData.meSend = false;
       var updates2 = {};
-      updates2['/'+'101'+'/' + currentUser.uid + '/' + newPostKey] = postData;
-      chatsRef.update(updates2)
+      updates2['/'+clickedUser.uid+'/' + currentUser.uid + '/' + newPostKey] = postData;
+      chatsRef.update(updates2);
       console.log("sended");
- return;
-
-})
+}
 
 leftClickFun();
