@@ -124,6 +124,7 @@ $('.recent-one').click(function(o){
 
 
 		chatsRef.child(currentUser.uid).child(clickedUser.uid).off();
+		chatsRef.child(currentUser.uid).child(clickedUser.uid).off();
 
 		loadMessage();
 		listenToDb();
@@ -221,7 +222,7 @@ function sendMsg(text){
         time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes(),
       }
 
-	addMessage(postData);
+	// addMessage(postData);
 
 
       var newPostKey = myChatsRef.child('101').push().key;
@@ -239,6 +240,22 @@ function sendMsg(text){
       chatsRef.update(updates2);
       console.log("sended");
 
+}
+
+$("#send_input").keydown(function (e){
+	if (e.keyCode == 13) {
+		enter_send_msg();
+		return false;
+	}
+})
+
+function enter_send_msg() {
+	var text = $("#send_input").val();
+	if(text!=""){
+ 		sendMsg(text);
+		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 500)
+		$("#send_input").val("");
+	}
 }
 
 leftClickFun();
