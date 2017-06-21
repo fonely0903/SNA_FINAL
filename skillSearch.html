@@ -115,6 +115,7 @@
             <header>
               <h1>{{a.title}}</h1>
               <p>{{a.time}}</p><p>{{a.area}}</p>
+              <a @click="queryUrl(a.uid)" style="cursor:pointer" >{{a.author}}</a>
               <div class="animation-swipe star" @click="toggle_like(a.aid)" :class="favorite_list[a.aid] ? 'favorite' : ''">
                 <span class="glyphicon glyphicon-star" >加入最愛</span>
               </div>
