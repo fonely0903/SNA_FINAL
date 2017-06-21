@@ -34,12 +34,15 @@ body{
 /*====================================TOP=====================================*/
 .top{
   padding-top: 100px;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
+}
+.userName{
+  padding-left:70px;
 }
 .profile-top{
   display: flex;
   align-items: center;
-  justify-content: center;
+  /*justify-content: center;*/
 }
 
 .photo{
@@ -53,19 +56,19 @@ body{
   height:70px;
   border: solid 3px #aaaaaa;
   border-radius: 99em;
-  margin: auto 15px;
+  /*margin: auto 50px;*/
+  margin-left: 150px;
+  margin-right: 10px;
 }
 .icon-border:hover{
+  cursor: pointer;
   box-shadow: 3px 3px 3px black;
-}
-.message-text{
-  opacity: 0;
 }
 .commented:hover~.commented-text{
   opacity: 1;
 }
 .commented-text{
-  opacity: 0;
+  /*opacity: 0;*/
 }
 /*====================================MID=====================================*/
 .mid{
@@ -146,9 +149,9 @@ body{
   flex: 5;
   font-size: 20px;
 }
-.mid-right-content{
+/*.mid-right-content{
   flex: 1;
-}
+}*/
 .feature{
   flex: 1;
 }
@@ -165,16 +168,29 @@ video {
   text-align: center;
 }
 .morevideo{
+  position: absolute;
+  bottom:12%;
+  right:15%;
   margin-top: 10px;
   font-size: 10px;
 }
+.choosefile{
+  position: absolute;
+  bottom: 12%;
+  left:35%;
+}
+.surepost{
+  position: absolute;
+  bottom: 12%;
+  left:50%;
+}
 /*==================================I WANT====================================*/
 .i-can-change{
-  margin-top: 100px;
-  margin-bottom: 50px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 .i-want-learn{
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 }
 .i-can-change > .i-want-title{
   -webkit-clip-path: polygon(10% 0, 75% 0, 100% 100%, 10% 100%);
@@ -185,17 +201,17 @@ video {
   clip-path: polygon(0 0, 90% 0, 90% 100%, 25% 100%);
 }
 .i-want-title{
-  /*display: flex;
-  justify-content: center;
-  align-items: center;*/
   padding-top: 60px ;
   text-align: center;
   background-color: white;
   height: 300px;
 }
 .i-want-title span{
-  font-size: 10em;
+  font-size: 9em;
   margin: auto 50px
+}
+.i-want-title span:hover{
+  font-size: 10em;
 }
 .i-want-content{
   height: 300px;
