@@ -14,6 +14,7 @@ var rootRef     = db.ref() ;
 var usersRef    = db.ref("users");
 var articlesRef = db.ref("articles");
 var chatsRef    = db.ref("chats");
+var unreadRef     = db.ref("unread");
 var currentUser
 
 var app = new Vue({
@@ -137,8 +138,24 @@ var app = new Vue({
       updates2['/'+uid+'/' + this.currentUser.uid + '/' + newPostKey] = postData;
       chatsRef.update(updates2);
       console.log("sended");
-    }
+
+var otherUnreadRef = unreadRef.child(uid);
+    otherUnreadRef.once('value').then(function(snapshot) {
+      if(null != snapshot.val()){
+        var unreadCount = snapshot.val().count +1;
+  otherUnreadRef.update({
+        "count":unreadCount
+      })
+      }else{
+
+      otherUnreadRef.update({
+        "count":1
+      });
+      }
+
+    });
   }
+}
     
     
 

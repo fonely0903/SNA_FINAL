@@ -13,6 +13,7 @@ var db          = firebase.database() ;
 var rootRef     = db.ref() ;
 var chatsRef    = db.ref("chats");
 var usersRef    = db.ref("users");
+var unreadRef 		= db.ref("unread");
 var store       = firebase.storage();
 var storeRef    = store.ref();
 var currentUser;
@@ -34,6 +35,7 @@ firebase.auth().onAuthStateChanged(function (user) {
  //    })
 
        getUsersID(); 
+resetUnread();
 
     
 
@@ -204,6 +206,7 @@ function listenToDb(firstClick){
             //第一次點選不同使用者不加入訊息
             if(!firstClick){
             	addMessage(itemVal);
+            	resetUnread();
 			}else{
 				firstClick = false;
 			}
@@ -249,7 +252,23 @@ function sendMsg(text){
       chatsRef.update(updates2);
       console.log("sended");
 
-}
+      var otherUnreadRef = unreadRef.child(clickedUser.uid);
+		otherUnreadRef.once('value').then(function(snapshot) {
+			if(null != snapshot.val()){
+				var unreadCount = snapshot.val().count +1;
+  otherUnreadRef.update({
+      	"count":unreadCount
+      })
+			}else{
+
+      otherUnreadRef.update({
+      	"count":1
+      });
+			}
+
+
+});
+	}
 
 $("#send_input").keydown(function (e){
 	if (e.keyCode == 13) {
@@ -265,6 +284,14 @@ function enter_send_msg() {
 		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 500)
 		$("#send_input").val("");
 	}
+}
+
+function resetUnread(){
+	var myUnreadRef = unreadRef.child(currentUser.uid);
+	
+      myUnreadRef.update({
+      	"count":0
+      });
 }
 
 leftClickFun();
