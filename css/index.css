@@ -70,6 +70,14 @@ footer {
   font-family: permanent-marker, sans-serif;
 }
 /*================================BIG IMG=====================================*/
+.item{
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+}
+.item img{
+  /*margin: auto;*/
+}
 .text-center{
   padding: 0;
 }
@@ -110,49 +118,11 @@ hr{
 }
 
 /*================================Modal=====================================*/
-
-#skillModal .modal-dialog{
-  width:1200px;
+.modal-dialog{
+  width: 1000px;
 }
-
-#skillModal .modal-content{
-  height: 80%;
-}
-
-#shareModal .modal-dialog{
-  width:1200px;
-}
-
-#shareModal .modal-content{
-  height: 80%;
-}
-
-#chatRoomModal .modal-dialog{
-  width:1200px;
-}
-#chatRoomModal .modal-content{
-  height: 80%;
-}
-
-#keywordModal .modal-dialog{
-  width: 1200px;
-}
-#keywordModal .modal-content{
-  height: 80%;
-}
-
-#rareModal .modal-dialog{
-  width: 1200px;
-}
-#rareModal .modal-content{
-  height: 80%;
-}
-
-#recommendModal .modal-dialog{
-  width: 1200px;
-}
-#recommendModal .modal-content{
-  height: 80%;
+.modal-content{
+  height: 70%;
 }
 
 .profileBut{
@@ -176,9 +146,9 @@ hr{
 }
 
 .modalBackground{
-    background: -webkit-linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
-    background:    -moz-linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
-    background:         linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
+    background: -webkit-linear-gradient(to bottom right, #426184 0%,#364f6b 100%);
+    background:    -moz-linear-gradient(to bottom right, #426184 0%,#364f6b 100%);
+    background:         linear-gradient(to bottom right, #426184 0%,#364f6b 100%);
 }
 
 #fbicon{
@@ -188,7 +158,7 @@ hr{
 /*================================Modal Divide Part=====================================*/
 
 .div3Part{
-  width: 33%;
+  width: 33.3%;
   padding: 1px;
   /*display: inline-block;*/
 }
@@ -207,7 +177,7 @@ hr{
 }
 
 .modal_prof{
-  height:100%;
+  height:440px;
   width: 100%;
   position: relative;
   border:1px solid;
