@@ -21,16 +21,17 @@ var historyUID;
 var historyUsers = [];
 var usersLastMessage = [];
 var token; 
+var listenRef;
 
 firebase.auth().onAuthStateChanged(function (user) {
   if(user){
     currentUser = user.toJSON();
-    console.log(currentUser);
+    // console.log(currentUser);
 
-	firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-      token = idToken;
-      console.log("取得 ID Token",token);
-    })
+	// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+ //      token = idToken;
+ //      // console.log("取得 ID Token",token);
+ //    })
 
        getUsersID(); 
 
@@ -115,9 +116,17 @@ $('.recent-one').click(function(o){
 		console.log(leftUserElement);
 		console.log(historyUID);
 
+
+
 		var clicked = leftUserElement.toArray().indexOf($(this).get(0));
 		console.log(historyUsers[clicked])
 		clickedUser = historyUsers[clicked];
+
+
+		chatsRef.child(currentUser.uid).child(clickedUser.uid).off();
+
+		loadMessage();
+		listenToDb();
 		// .recent-one__active
 
 // 		var commentsRef = myChatsRef.child("");
@@ -127,17 +136,76 @@ $('.recent-one').click(function(o){
 	})
 }
 
+function loadMessage(){
+	var myChatsRef    = chatsRef.child(currentUser.uid).child(clickedUser.uid);
+
+	   myChatsRef.once('value', function (snap) {
+        snap.forEach(function (item) {
+            var itemVal = item.val();
+            // console.log(itemVal);
+            addMessage(itemVal);
+
+        });
+		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 50)
+        
+        });
+
+
+}
+
+function addMessage(textModel){
+
+	
+
+			var m;
+			
+			if(textModel.meSend==true){
+				m = $("<div></div>").addClass('message');
+			}else{
+				m  = $("<div></div>").addClass('message message_left');
+			}
+
+			var mb = $("<div></div>").addClass('message__body').text(textModel.message);
+			var mf = $("<div></div>").addClass('message__footer');
+			var time = $("<time></time>").text(textModel.time);
+			mf.append(time);
+			
+			m.append(mb);
+			m.append(mf);
+		$(".messenger__list").append(m);
+}
+
 console.log("js loaded")
 $('#send_bt').click(function(){
 
 	var text = $("#send_input").val();
 	if(text!=""){
  		sendMsg(text);
+		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 500)
+		$("#send_input").val("");
 	}
 
  return;
 
 })
+
+function listenToDb(){
+	listenRef = chatsRef.child(currentUser.uid).child(clickedUser.uid);
+  	console.log("listenToDb");
+
+	listenRef.limitToLast(1).on('value', function(snapshot) {
+  	console.log("db change");
+
+  	snapshot.forEach(function (item) {
+            var itemVal = item.val();
+            console.log(itemVal);
+            addMessage(itemVal);
+
+		 $(".messenger__list").animate({ scrollTop: $('.messenger__list').prop("scrollHeight")}, 50)
+
+        });
+	});
+}
 
 function sendMsg(text){
     
@@ -145,16 +213,19 @@ function sendMsg(text){
 
 	var myChatsRef    = chatsRef.child(currentUser.uid);
 
-       var dataArr = $("#articleForm").serializeArray();
      
       var postData = {
+      	read : false,
         meSend :true,
         message : text,
         time :new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes(),
       }
 
+	addMessage(postData);
+
+
       var newPostKey = myChatsRef.child('101').push().key;
-console.log(newPostKey);
+// console.log(newPostKey);
       var updates = {};
       updates['/'+clickedUser.uid+'/' + newPostKey] = postData;
       myChatsRef.update(updates)
@@ -167,6 +238,7 @@ console.log(newPostKey);
       updates2['/'+clickedUser.uid+'/' + currentUser.uid + '/' + newPostKey] = postData;
       chatsRef.update(updates2);
       console.log("sended");
+
 }
 
 leftClickFun();
