@@ -88,6 +88,7 @@ var app = new Vue({
       var postData = {
         uid :vm.currentUser.uid,
         aid :aid,
+        author :vm.currentUser.displayName,
         title :dataArr[0].value,
         change :dataArr[1].value,
         learn :dataArr[2].value,
