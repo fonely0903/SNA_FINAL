@@ -96,3 +96,183 @@ hr{
     border-top: 1px solid #A0A0A0;
     width: 90%;
 }
+
+.mynewclassclose {
+    position: absolute;
+    margin: 0;
+    top: -23px; /* half height of "X" image, just for nice placing*/
+    right: -23px; /* half width of "X" image, just for nice placing*/
+    opacity: 0.9;
+}
+
+.mynewclassclose:hover {
+    opacity: 1;
+}
+
+/*================================Modal=====================================*/
+
+#skillModal .modal-dialog{
+  width:1200px;
+}
+
+#skillModal .modal-content{
+  height: 80%;
+}
+
+#shareModal .modal-dialog{
+  width:1200px;
+}
+
+#shareModal .modal-content{
+  height: 80%;
+}
+
+#chatRoomModal .modal-dialog{
+  width:1200px;
+}
+#chatRoomModal .modal-content{
+  height: 80%;
+}
+
+#keywordModal .modal-dialog{
+  width: 1200px;
+}
+#keywordModal .modal-content{
+  height: 80%;
+}
+
+#rareModal .modal-dialog{
+  width: 1200px;
+}
+#rareModal .modal-content{
+  height: 80%;
+}
+
+#recommendModal .modal-dialog{
+  width: 1200px;
+}
+#recommendModal .modal-content{
+  height: 80%;
+}
+
+.profileBut{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.searchBut{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.chatBut{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.unlogButton{
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.modalBackground{
+    background: -webkit-linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
+    background:    -moz-linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
+    background:         linear-gradient(to bottom right, #003366 -13%, #33cccc 73%);
+}
+
+#fbicon{
+  height : auto;
+  height : 100px;
+}
+/*================================Modal Divide Part=====================================*/
+
+.div3Part{
+  width: 33%;
+  padding: 1px;
+  /*display: inline-block;*/
+}
+
+.div2Part{
+  width: 50%;
+  padding: 1px;
+}
+
+.div1Part{
+  width: 83%;
+  padding: 1px;
+}
+.modal_content{
+  margin: 0;
+}
+
+.modal_prof{
+  height:100%;
+  width: 100%;
+  position: relative;
+  border:1px solid;
+}
+
+.modal_prof{
+    -webkit-transition: all .2s ease; /* Safari and Chrome */
+  	-moz-transition: all .2s ease; /* Firefox */
+  	-o-transition: all .2s ease; /* IE 9 */
+  	-ms-transition: all .2s ease; /* Opera */
+  	transition: all .2s ease;
+}
+
+.modal_prof:hover{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+      -moz-transform:scale(1.25); /* Firefox */
+      -ms-transform:scale(1.25); /* IE 9 */
+      -o-transform:scale(1.25); /* Opera */
+     transform:scale(1.25);
+     z-index: 1;
+}
+
+.description_text{
+  font-family: Microsoft JhengHei;
+  font-size:18px;
+  color: #292F33;
+  margin: 15px 0;
+}
+
+/*================================Footer BAR=====================================*/
+.lastlayer{
+  background: #3e4249;
+  padding: 25px;
+  color: white;
+}
+
+.skills{
+  font-family: permanent-marker, sans-serif;
+}
+
+.skills:hover{
+  color:#3FC9CE;
+  cursor: pointer;
+}
+
+#mailicon{
+  height : auto;
+  height : 16px;
+}
+
+.footer{
+  border-top: 1px solid #e0e0e0;
+  background: #3e4249;
+  color: white;
+}
+
+.foot_text{
+  text-align: center;
+  font-family: permanent-marker, sans-serif;
+  font-size: 20px;
+  color: white;
+  margin-Left: 30px;
+}
