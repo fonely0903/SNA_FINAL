@@ -12,6 +12,7 @@ var provider = new firebase.auth.FacebookAuthProvider();
 var db          = firebase.database() ;
 var rootRef     = db.ref() ;
 var usersRef    = db.ref("users");
+var unreadRef   = db.ref("unread")
 var currentUid
 
 var loginState = (function (){
@@ -30,11 +31,11 @@ var loginState = (function (){
 
 $(document).ready(function(){
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log(user);
+    currentUid = user.uid
+    console.log(currentUid);
     var vm=this;
       if (user){
         // save usr public data  (*1)
-        currentUid = user.uid
         console.log(currentUid);
         var userData = user.toJSON();
         usersRef.child (userData.uid).child("userData").update(userData).catch(errorCallback)
@@ -50,6 +51,11 @@ $(document).ready(function(){
         $('.loged').css('display','none')
         loginState.changeState(false);
       }
+      unreadRef.child(currentUid).once('value',function(data){
+        var count = data.val()
+        console.log(count.count);
+        $('.unread').text(count.count)
+      })
     })
 })
 

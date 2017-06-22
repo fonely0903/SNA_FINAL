@@ -153,6 +153,7 @@ var app = new Vue({
 
         });
       }
+      $('#changeModal').modal('hide')
     }
 
 
