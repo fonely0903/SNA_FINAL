@@ -31,8 +31,8 @@ var loginState = (function (){
 
 $(document).ready(function(){
   firebase.auth().onAuthStateChanged(function(user) {
-    currentUid = user.uid
-    console.log(currentUid);
+    //currentUid = user.uid
+    //console.log(currentUid);
     var vm=this;
       if (user){
         // save usr public data  (*1)
