@@ -31,10 +31,10 @@ var loginState = (function (){
 
 $(document).ready(function(){
   firebase.auth().onAuthStateChanged(function(user) {
-    currentUid = user.uid
-    console.log(currentUid);
     var vm=this;
       if (user){
+        currentUid = user.uid
+        console.log(currentUid);
         // save usr public data  (*1)
         console.log(currentUid);
         var userData = user.toJSON();
@@ -45,17 +45,18 @@ $(document).ready(function(){
         $('.userImg').attr('src',user.photoURL);
         $('.userImg').attr('alt',user.displayName)
         loginState.changeState(true);
+        unreadRef.child(currentUid).once('value',function(data){
+          var count = data.val()
+          console.log(count.count);
+          $('.unread').text(count.count)
+        })
       }else{
         // update vue to logout status
         $('.log-in').css('display','block')
         $('.loged').css('display','none')
         loginState.changeState(false);
       }
-      unreadRef.child(currentUid).once('value',function(data){
-        var count = data.val()
-        console.log(count.count);
-        $('.unread').text(count.count)
-      })
+
     })
 })
 
